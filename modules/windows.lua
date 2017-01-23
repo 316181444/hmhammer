@@ -72,6 +72,79 @@ function focusedWindowFirst(fn)
     end
 end
 
+function resize_win(direction)
+    local win = hs.window.focusedWindow()
+    if win then
+        local f = win:frame()
+        local screen = win:screen()
+        local max = screen:fullFrame()
+        local stepw = max.w/100
+        local steph = max.h/100
+        if direction == "right" then f.w = f.w+stepw end
+        if direction == "left" then f.w = f.w-stepw end
+        if direction == "up" then f.h = f.h-steph end
+        if direction == "down" then f.h = f.h+steph end
+        if direction == "halfright" then f.x = max.w/2 f.y = 0 f.w = max.w/2 f.h = max.h end
+        if direction == "halfleft" then f.x = 0 f.y = 0 f.w = max.w/2 f.h = max.h end
+        if direction == "halfup" then f.x = 0 f.y = 0 f.w = max.w f.h = max.h/2 end
+        if direction == "halfdown" then f.x = 0 f.y = max.h/2 f.w = max.w f.h = max.h/2 end
+        if direction == "cornerNE" then f.x = max.w/2 f.y = 0 f.w = max.w/2 f.h = max.h/2 end
+        if direction == "cornerSE" then f.x = max.w/2 f.y = max.h/2 f.w = max.w/2 f.h = max.h/2 end
+        if direction == "cornerNW" then f.x = 0 f.y = 0 f.w = max.w/2 f.h = max.h/2 end
+        if direction == "cornerSW" then f.x = 0 f.y = max.h/2 f.w = max.w/2 f.h = max.h/2 end
+        if direction == "center" then f.x = (max.w-f.w)/2 f.y = (max.h-f.h)/2 end
+        if direction == "fcenter" then f.x = stepw*5 f.y = steph*5 f.w = stepw*20 f.h = steph*20 end
+        if direction == "fullscreen" then f = max end
+        if direction == "shrink" then f.x = f.x+stepw f.y = f.y+steph f.w = f.w-(stepw*2) f.h = f.h-(steph*2) end
+        if direction == "expand" then f.x = f.x-stepw f.y = f.y-steph f.w = f.w+(stepw*2) f.h = f.h+(steph*2) end
+        if direction == "mright" then f.x = f.x+stepw end
+        if direction == "mleft" then f.x = f.x-stepw end
+        if direction == "mup" then f.y = f.y-steph end
+        if direction == "mdown" then f.y = f.y+steph end
+        win:setFrame(f)
+    else
+        hs.alert.show("No focused window!")
+    end
+end
+
+function cycle_wins_next()
+    resize_win_list[resize_current_winnum]:focus()
+    resize_current_winnum = resize_current_winnum + 1
+    if resize_current_winnum > #resize_win_list then resize_current_winnum = 1 end
+end
+
+function cycle_wins_pre()
+    resize_win_list[resize_current_winnum]:focus()
+    resize_current_winnum = resize_current_winnum - 1
+    if resize_current_winnum < 1 then resize_current_winnum = #resize_win_list end
+end
+
+resize_current_winnum = 1
+resize_win_list = hs.window.visibleWindows()
+
+hotkey.bind(hyperShiftCmd, 'H', 'Shrink Leftward', function() resize_win('left') end, nil, function() resize_win('left') end)
+hotkey.bind(hyperShiftCmd, 'L', 'Stretch Rightward', function() resize_win('right') end, nil, function() resize_win('right') end)
+hotkey.bind(hyperShiftCmd, 'J', 'Stretch Downward', function() resize_win('down') end, nil, function() resize_win('down') end)
+hotkey.bind(hyperShiftCmd, 'K', 'Shrink Upward', function() resize_win('up') end, nil, function() resize_win('up') end)
+hotkey.bind(hyperShiftCmd, 'F', 'Fullscreen', function() resize_win('fullscreen') end, nil, nil)
+-- hotkey.bind(hyper, 'C', 'Center Window', function() resize_win('center') end, nil, nil)
+hotkey.bind(hyperShift, 'C', 'Resize & Center', function() resize_win('fcenter') end, nil, nil)
+hotkey.bind(hyperShift, 'H', 'Lefthalf of Screen', function() resize_win('halfleft') end, nil, nil)
+hotkey.bind(hyperShift, 'J', 'Downhalf of Screen', function() resize_win('halfdown') end, nil, nil)
+hotkey.bind(hyperShift, 'K', 'Uphalf of Screen', function() resize_win('halfup') end, nil, nil)
+hotkey.bind(hyperShift, 'L', 'Righthalf of Screen', function() resize_win('halfright') end, nil, nil)
+hotkey.bind(hyperShift, 'Y', 'NorthWest Corner', function() resize_win('cornerNW') end, nil, nil)
+hotkey.bind(hyperShift, 'U', 'SouthWest Corner', function() resize_win('cornerSW') end, nil, nil)
+hotkey.bind(hyperShift, 'I', 'SouthEast Corner', function() resize_win('cornerSE') end, nil, nil)
+hotkey.bind(hyperShift, 'O', 'NorthEast Corner', function() resize_win('cornerNE') end, nil, nil)
+hotkey.bind(hyperShift, '=', 'Stretch Outward', function() resize_win('expand') end, nil, function() resize_win('expand') end)
+hotkey.bind(hyperShift, '-', 'Shrink Inward', function() resize_win('shrink') end, nil, function() resize_win('shrink') end)
+hotkey.bind(hyperShiftCtrl, 'H', 'Move Leftward', function() resize_win('mleft') end, nil, function() resize_win('mleft') end)
+hotkey.bind(hyperShiftCtrl, 'L', 'Move Rightward', function() resize_win('mright') end, nil, function() resize_win('mright') end)
+hotkey.bind(hyperShiftCtrl, 'J', 'Move Downward', function() resize_win('mdown') end, nil, function() resize_win('mdown') end)
+hotkey.bind(hyperShiftCtrl, 'K', 'Move Upward', function() resize_win('mup') end, nil, function() resize_win('mup') end)
+-- hotkey.bind(hyperShiftCtrl, 'U', 'Focus Westward', function() cycle_wins_pre() end, nil, function() cycle_wins_pre() end)
+-- hotkey.bind(hyperShiftCtrl, 'I', 'Focus Eastward', function() cycle_wins_next() end, nil, function() cycle_wins_next() end)
 
 
 hotkey.bind(hyper, '0', function() mouseHighlight() end)
