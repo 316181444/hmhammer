@@ -6,7 +6,8 @@ local key2App = {
     W = 'com.tencent.qq',
     U = 'com.unity3d.UnityEditor5.x',
     M = 'com.unity.monodevelop',
-    R = 'com.jetbrains.Rider-EAP'
+    R = 'com.jetbrains.rider',
+    X = 'com.google.android.studio'
 }
 
 for key, app in pairs(key2App) do
