@@ -132,7 +132,7 @@ hotkey.bind(hyperShift, 'C', 'Resize & Center', function() resize_win('fcenter')
 hotkey.bind(hyperShift, 'H', 'Lefthalf of Screen', function() resize_win('halfleft') end, nil, nil)
 hotkey.bind(hyperShift, 'J', 'Downhalf of Screen', function() resize_win('halfdown') end, nil, nil)
 hotkey.bind(hyperShift, 'K', 'Uphalf of Screen', function() resize_win('halfup') end, nil, nil)
-hotkey.bind(hyperShift, 'L', 'Righthalf of Screen', function() resize_win('halfright') end, nil, nil)
+-- hotkey.bind(hyperShift, 'L', 'Righthalf of Screen', function() resize_win('halfright') end, nil, nil)
 hotkey.bind(hyperShift, 'Y', 'NorthWest Corner', function() resize_win('cornerNW') end, nil, nil)
 hotkey.bind(hyperShift, 'U', 'SouthWest Corner', function() resize_win('cornerSW') end, nil, nil)
 hotkey.bind(hyperShift, 'I', 'SouthEast Corner', function() resize_win('cornerSE') end, nil, nil)
@@ -151,5 +151,5 @@ hotkey.bind(hyper, '0', function() mouseHighlight() end)
 hotkey.bind(hyper, 'tab', function() focusedWindowFirst(
                     function() toggle_window_maximized() end) end)
 hotkey.bind(hyper, '/', function() hints.windowHints() end)
-hotkey.bind(hyper, '=', function() focusedWindowFirst(
-                    function() fullScreen(hs.window.focusedWindow()) end) end)
+-- hotkey.bind(hyper, '=', function() focusedWindowFirst(
+--                     function() fullScreen(hs.window.focusedWindow()) end) end)

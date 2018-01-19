@@ -6,7 +6,8 @@ local key2App = {
     W = 'com.tencent.qq',
     U = 'com.unity3d.UnityEditor5.x',
     M = 'com.unity.monodevelop',
-    R = 'com.jetbrains.Rider-EAP'
+    R = 'com.jetbrains.rider',
+    D = 'com.jetbrains.datagrip'
 }
 
 for key, app in pairs(key2App) do
@@ -44,9 +45,8 @@ function toggle_application(_app)
 end
 
 
-hotkey.bind(hyper, '=', function()
+hotkey.bind(hyper, '`', 'show bundleid', function()
                 local cur = application.frontmostApplication()
-
                 log.i('output current application info...')
                 log.i(cur:name())
                 log.i(cur:bundleID())
