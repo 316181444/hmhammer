@@ -7,7 +7,8 @@ local key2App = {
     U = 'com.unity3d.UnityEditor5.x',
     M = 'com.unity.monodevelop',
     R = 'com.jetbrains.rider',
-    D = 'com.jetbrains.datagrip'
+    D = 'com.jetbrains.datagrip',
+    X = 'com.google.android.studio'
 }
 
 for key, app in pairs(key2App) do
