@@ -35,16 +35,25 @@ function get_switcher()
     local s = switchers[n]
     if s == nil then
         s = hs.window.switcher.new{n}
+        s.ui.highlightColor = {0.4,0.4,0.5,0.8}
+        s.ui.thumbnailSize = 112
+        s.ui.selectedThumbnailSize = 284
+        s.ui.backgroundColor = {0.3, 0.3, 0.3, 0.5}
+        s.ui.fontName = 'System'
+        s.ui.textSize = 14
+        s.ui.showSelectedTitle = false
         switchers[n] = s
     end
     return s
 end
 
-hs.hotkey.bind('alt', '[', 'Prev window', function()
-                   get_switcher():previous()
-end)
+hs.window.animationDuration = 0
 
-
-hs.hotkey.bind('alt', ']', 'Next window', function()
-                   get_switcher():next()
-end)
+-- hs.hotkey.bind('alt', '[', 'Prev window', function()
+--                    get_switcher():previous()
+-- end)
+--
+--
+-- hs.hotkey.bind('alt', ']', 'Next window', function()
+--                    get_switcher():next()
+-- end)

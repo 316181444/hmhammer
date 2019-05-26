@@ -16,12 +16,17 @@ grid.setGrid'10x4'
 -- The default duration for animations, in seconds.
 -- Initial value is 0.2; set to 0 to disable animations.
 window.animationDuration = 0
+-- hs.window.setFrameCorrectness = true
 
 -- Defines for window maximize toggler
 local frameCache = {}
 -- Toggle a window between its normal size, and being maximized
 function toggle_window_maximized()
     local win = window.focusedWindow()
+    if win == nil then
+        return
+    end
+
     if frameCache[win:id()] then
         win:setFrame(frameCache[win:id()])
         frameCache[win:id()] = nil
@@ -78,21 +83,22 @@ function resize_win(direction)
         local f = win:frame()
         local screen = win:screen()
         local max = screen:fullFrame()
-        local stepw = max.w/100
-        local steph = max.h/100
+        local stepw = max.w/20
+        local steph = max.h/15
+        local sf = max
         if direction == "right" then f.w = f.w+stepw end
         if direction == "left" then f.w = f.w-stepw end
         if direction == "up" then f.h = f.h-steph end
         if direction == "down" then f.h = f.h+steph end
-        if direction == "halfright" then f.x = max.w/2 f.y = 0 f.w = max.w/2 f.h = max.h end
-        if direction == "halfleft" then f.x = 0 f.y = 0 f.w = max.w/2 f.h = max.h end
-        if direction == "halfup" then f.x = 0 f.y = 0 f.w = max.w f.h = max.h/2 end
-        if direction == "halfdown" then f.x = 0 f.y = max.h/2 f.w = max.w f.h = max.h/2 end
-        if direction == "cornerNE" then f.x = max.w/2 f.y = 0 f.w = max.w/2 f.h = max.h/2 end
-        if direction == "cornerSE" then f.x = max.w/2 f.y = max.h/2 f.w = max.w/2 f.h = max.h/2 end
-        if direction == "cornerNW" then f.x = 0 f.y = 0 f.w = max.w/2 f.h = max.h/2 end
-        if direction == "cornerSW" then f.x = 0 f.y = max.h/2 f.w = max.w/2 f.h = max.h/2 end
-        if direction == "center" then f.x = (max.w-f.w)/2 f.y = (max.h-f.h)/2 end
+        if direction == "halfright" then f.x = sf.x+max.w/2 f.y = sf.y f.w = max.w/2 f.h = max.h end
+        if direction == "halfleft" then f.x = sf.x f.y = sf.y f.w = max.w/2 f.h = max.h end
+        if direction == "halfup" then f.x = sf.x f.y = sf.y f.w = max.w f.h = max.h/2 end
+        if direction == "halfdown" then f.x = sf.x f.y = sf.y+max.h/2 f.w = max.w f.h = max.h/2 end
+        if direction == "cornerNE" then f.x = sf.x+max.w/2 f.y = sf.y f.w = max.w/2 f.h = max.h/2 end
+        if direction == "cornerSE" then f.x = sf.x+max.w/2 f.y = sf.y+max.h/2 f.w = max.w/2 f.h = max.h/2 end
+        if direction == "cornerNW" then f.x = sf.x f.y = sf.y f.w = max.w/2 f.h = max.h/2 end
+        if direction == "cornerSW" then f.x = sf.x f.y = sf.y+max.h/2 f.w = max.w/2 f.h = max.h/2 end
+        if direction == "center" then f.x = sf.x+(max.w-f.w)/2 f.y = sf.y+(max.h-f.h)/2 end
         if direction == "fcenter" then f.x = stepw*5 f.y = steph*5 f.w = stepw*20 f.h = steph*20 end
         if direction == "fullscreen" then f = max end
         if direction == "shrink" then f.x = f.x+stepw f.y = f.y+steph f.w = f.w-(stepw*2) f.h = f.h-(steph*2) end
@@ -101,7 +107,8 @@ function resize_win(direction)
         if direction == "mleft" then f.x = f.x-stepw end
         if direction == "mup" then f.y = f.y-steph end
         if direction == "mdown" then f.y = f.y+steph end
-        win:setFrame(f)
+        log.i('setFrameWithWorkarounds', direction, f, screen, max, sf)
+        win:setFrameInScreenBounds(f)
     else
         hs.alert.show("No focused window!")
     end
@@ -128,11 +135,13 @@ hotkey.bind(hyperShiftCmd, 'J', 'Stretch Downward', function() resize_win('down'
 hotkey.bind(hyperShiftCmd, 'K', 'Shrink Upward', function() resize_win('up') end, nil, function() resize_win('up') end)
 hotkey.bind(hyperShiftCmd, 'F', 'Fullscreen', function() resize_win('fullscreen') end, nil, nil)
 -- hotkey.bind(hyper, 'C', 'Center Window', function() resize_win('center') end, nil, nil)
-hotkey.bind(hyperShift, 'C', 'Resize & Center', function() resize_win('fcenter') end, nil, nil)
+
+-- hotkey.bind(hyperShift, 'C', 'Resize & Center', function() resize_win('fcenter') end, nil, nil)
 hotkey.bind(hyperShift, 'H', 'Lefthalf of Screen', function() resize_win('halfleft') end, nil, nil)
 hotkey.bind(hyperShift, 'J', 'Downhalf of Screen', function() resize_win('halfdown') end, nil, nil)
 hotkey.bind(hyperShift, 'K', 'Uphalf of Screen', function() resize_win('halfup') end, nil, nil)
--- hotkey.bind(hyperShift, 'L', 'Righthalf of Screen', function() resize_win('halfright') end, nil, nil)
+hotkey.bind(hyperShift, 'L', 'Righthalf of Screen', function() resize_win('halfright') end, nil, nil)
+
 hotkey.bind(hyperShift, 'Y', 'NorthWest Corner', function() resize_win('cornerNW') end, nil, nil)
 hotkey.bind(hyperShift, 'U', 'SouthWest Corner', function() resize_win('cornerSW') end, nil, nil)
 hotkey.bind(hyperShift, 'I', 'SouthEast Corner', function() resize_win('cornerSE') end, nil, nil)

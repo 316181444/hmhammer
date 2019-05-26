@@ -1,14 +1,15 @@
 local key2App = {
-    I = 'com.jetbrains.intellij',
+    I = 'com.jetbrains.WebStorm',
     E = 'org.gnu.Emacs',
     C = 'com.googlecode.iterm2',
     G = 'com.google.Chrome',
-    W = 'com.tencent.qq',
-    U = 'com.unity3d.UnityEditor5.x',
-    M = 'com.unity.monodevelop',
-    R = 'com.jetbrains.rider',
+    W = 'com.tencent.xinWeChat',
+    M = 'com.jetbrains.WebStorm',
     D = 'com.jetbrains.datagrip',
-    X = 'com.google.android.studio'
+    O = 'com.jetbrains.goland',
+    P = 'com.jetbrains.PhpStorm',
+    F = 'com.google.Chrome.canary'
+--    L = 'com.alibaba.DingTalkMac',
 }
 
 for key, app in pairs(key2App) do
@@ -47,9 +48,24 @@ end
 
 
 hotkey.bind(hyper, '`', 'show bundleid', function()
-                local cur = application.frontmostApplication()
-                log.i('output current application info...')
-                log.i(cur:name())
-                log.i(cur:bundleID())
-                log.i(cur:path())
+    local cur = application.frontmostApplication()
+    log.i('output current application info...')
+    log.i(cur:name())
+    log.i(cur:bundleID())
+    log.i(cur:path())
+    local win = hs.window.focusedWindow()
+    if win then
+        log.i(win:frame())
+        local screen = win:screen()
+        local screen_f = screen:frame()
+        log.i(screen_f)
+
+        local f = win:frame()
+        local s = win:size()
+        s.h = screen_f.h
+        s.w = screen_f.w
+        --s.h = s.h - 10
+        --win:setSize(s)
+        --win:setFrameInScreenBounds(screen_f)
+    end
 end)
