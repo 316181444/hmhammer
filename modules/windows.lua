@@ -83,8 +83,8 @@ function resize_win(direction)
         local f = win:frame()
         local screen = win:screen()
         local max = screen:fullFrame()
-        local stepw = max.w/20
-        local steph = max.h/15
+        local stepw = max.w/50
+        local steph = max.h/30
         local sf = max
         if direction == "right" then f.w = f.w+stepw end
         if direction == "left" then f.w = f.w-stepw end
