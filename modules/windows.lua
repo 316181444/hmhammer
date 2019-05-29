@@ -83,7 +83,7 @@ function resize_win(direction)
         local f = win:frame()
         local screen = win:screen()
         local max = screen:fullFrame()
-        local stepw = max.w/50
+        local stepw = max.w/70
         local steph = max.h/30
         local sf = max
         if direction == "right" then f.w = f.w+stepw end
@@ -91,9 +91,13 @@ function resize_win(direction)
         if direction == "up" then f.h = f.h-steph end
         if direction == "down" then f.h = f.h+steph end
         if direction == "halfright" then f.x = sf.x+max.w/2 f.y = sf.y f.w = max.w/2 f.h = max.h end
+        if direction == "halfright3" then f.x = sf.x+max.w/5*3 f.y = sf.y f.w = max.w/5*2 f.h = max.h end
         if direction == "halfleft" then f.x = sf.x f.y = sf.y f.w = max.w/2 f.h = max.h end
+        if direction == "halfleft3" then f.x = sf.x f.y = sf.y f.w = max.w/5*3 f.h = max.h end
         if direction == "halfup" then f.x = sf.x f.y = sf.y f.w = max.w f.h = max.h/2 end
+        if direction == "halfup3" then f.x = sf.x+max.w/5*3 f.y = sf.y f.w = max.w/5*2 f.h = max.h/2 end
         if direction == "halfdown" then f.x = sf.x f.y = sf.y+max.h/2 f.w = max.w f.h = max.h/2 end
+        if direction == "halfdown3" then f.x = sf.x+max.w/5*3 f.y = sf.y+max.h/2 f.w = max.w/5*2 f.h = max.h/2 end
         if direction == "cornerNE" then f.x = sf.x+max.w/2 f.y = sf.y f.w = max.w/2 f.h = max.h/2 end
         if direction == "cornerSE" then f.x = sf.x+max.w/2 f.y = sf.y+max.h/2 f.w = max.w/2 f.h = max.h/2 end
         if direction == "cornerNW" then f.x = sf.x f.y = sf.y f.w = max.w/2 f.h = max.h/2 end
@@ -152,8 +156,11 @@ hotkey.bind(hyperShiftCtrl, 'H', 'Move Leftward', function() resize_win('mleft')
 hotkey.bind(hyperShiftCtrl, 'L', 'Move Rightward', function() resize_win('mright') end, nil, function() resize_win('mright') end)
 hotkey.bind(hyperShiftCtrl, 'J', 'Move Downward', function() resize_win('mdown') end, nil, function() resize_win('mdown') end)
 hotkey.bind(hyperShiftCtrl, 'K', 'Move Upward', function() resize_win('mup') end, nil, function() resize_win('mup') end)
--- hotkey.bind(hyperShiftCtrl, 'U', 'Focus Westward', function() cycle_wins_pre() end, nil, function() cycle_wins_pre() end)
--- hotkey.bind(hyperShiftCtrl, 'I', 'Focus Eastward', function() cycle_wins_next() end, nil, function() cycle_wins_next() end)
+
+hotkey.bind(hyperShiftCtrl, 'Y', 'Lefthalf of Screen 3', function() resize_win('halfleft3') end, nil, nil)
+hotkey.bind(hyperShiftCtrl, 'O', 'Righthalf of Screen 3', function() resize_win('halfright3') end, nil, nil)
+hotkey.bind(hyperShiftCtrl, 'U', 'Uphalf of Screen 3', function() resize_win('halfup3') end, nil, nil)
+hotkey.bind(hyperShiftCtrl, 'I', 'Downhalf of Screen 3', function() resize_win('halfdown3') end, nil, nil)
 
 
 hotkey.bind(hyper, '0', function() mouseHighlight() end)
