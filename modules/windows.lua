@@ -91,13 +91,15 @@ function resize_win(direction)
         if direction == "up" then f.h = f.h-steph end
         if direction == "down" then f.h = f.h+steph end
         if direction == "halfright" then f.x = sf.x+max.w/2 f.y = sf.y f.w = max.w/2 f.h = max.h end
-        if direction == "halfright3" then f.x = sf.x+max.w/5*3 f.y = sf.y f.w = max.w/5*2 f.h = max.h end
+        if direction == "halfright3" then f.x = sf.x+max.w/11*8 f.y = sf.y f.w = max.w/11*3 f.h = max.h end
         if direction == "halfleft" then f.x = sf.x f.y = sf.y f.w = max.w/2 f.h = max.h end
-        if direction == "halfleft3" then f.x = sf.x f.y = sf.y f.w = max.w/5*3 f.h = max.h end
+        if direction == "halfleft3" then f.x = sf.x f.y = sf.y f.w = max.w/11*8 f.h = max.h end
         if direction == "halfup" then f.x = sf.x f.y = sf.y f.w = max.w f.h = max.h/2 end
-        if direction == "halfup3" then f.x = sf.x+max.w/5*3 f.y = sf.y f.w = max.w/5*2 f.h = max.h/2 end
+        if direction == "halfup3" then f.x = sf.x+max.w/11*8 f.y = sf.y f.w = max.w/11*3 f.h = max.h/2 end
+        if direction == "halfup4" then f.x = sf.x+max.w/5*3 f.y = sf.y f.w = max.w/5*2 f.h = max.h/2 end
         if direction == "halfdown" then f.x = sf.x f.y = sf.y+max.h/2 f.w = max.w f.h = max.h/2 end
-        if direction == "halfdown3" then f.x = sf.x+max.w/5*3 f.y = sf.y+max.h/2 f.w = max.w/5*2 f.h = max.h/2 end
+        if direction == "halfdown3" then f.x = sf.x+max.w/11*8 f.y = sf.y+max.h/2 f.w = max.w/11*3 f.h = max.h/2 end
+        if direction == "halfdown4" then f.x = sf.x+max.w/5*3 f.y = sf.y+max.h/2 f.w = max.w/5*2 f.h = max.h/2 end
         if direction == "cornerNE" then f.x = sf.x+max.w/2 f.y = sf.y f.w = max.w/2 f.h = max.h/2 end
         if direction == "cornerSE" then f.x = sf.x+max.w/2 f.y = sf.y+max.h/2 f.w = max.w/2 f.h = max.h/2 end
         if direction == "cornerNW" then f.x = sf.x f.y = sf.y f.w = max.w/2 f.h = max.h/2 end
@@ -158,9 +160,11 @@ hotkey.bind(hyperShiftCtrl, 'J', 'Move Downward', function() resize_win('mdown')
 hotkey.bind(hyperShiftCtrl, 'K', 'Move Upward', function() resize_win('mup') end, nil, function() resize_win('mup') end)
 
 hotkey.bind(hyperShiftCtrl, 'Y', 'Lefthalf of Screen 3', function() resize_win('halfleft3') end, nil, nil)
-hotkey.bind(hyperShiftCtrl, 'O', 'Righthalf of Screen 3', function() resize_win('halfright3') end, nil, nil)
-hotkey.bind(hyperShiftCtrl, 'U', 'Uphalf of Screen 3', function() resize_win('halfup3') end, nil, nil)
-hotkey.bind(hyperShiftCtrl, 'I', 'Downhalf of Screen 3', function() resize_win('halfdown3') end, nil, nil)
+hotkey.bind(hyperShiftCtrl, 'O', 'Righthalfup of Screen 3', function() resize_win('halfright3') end, nil, nil)
+hotkey.bind(hyperShiftCtrl, 'U', 'Righthalfdown of Screen 3', function() resize_win('halfup3') end, nil, nil)
+hotkey.bind(hyperShiftCtrl, 'I', 'Righthalf of Screen 3', function() resize_win('halfdown3') end, nil, nil)
+hotkey.bind(hyperShiftCtrl, '7', 'Righthalfup of Screen 4', function() resize_win('halfup4') end, nil, nil)
+hotkey.bind(hyperShiftCtrl, '8', 'Righthalfdown of Screen 4', function() resize_win('halfdown4') end, nil, nil)
 
 
 hotkey.bind(hyper, '0', function() mouseHighlight() end)
