@@ -1,14 +1,17 @@
 local key2App = {
-    I = 'com.jetbrains.WebStorm',
+    U = 'com.jetbrains.WebStorm',
     E = 'org.gnu.Emacs',
     C = 'com.googlecode.iterm2',
-    G = 'com.google.Chrome',
+    G = 'com.apple.Safari',
     W = 'com.tencent.xinWeChat',
     M = 'com.jetbrains.WebStorm',
     D = 'com.jetbrains.datagrip',
+    I = 'com.jetbrains.intellij',
     O = 'com.jetbrains.goland',
     P = 'com.jetbrains.PhpStorm',
-    F = 'com.google.Chrome.canary'
+    F = 'com.google.Chrome',
+    A = 'com.google.android.studio'
+--    X = 'com.apple.Safari',
 --    L = 'com.alibaba.DingTalkMac',
 }
 
