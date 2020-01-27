@@ -139,7 +139,7 @@ hotkey.bind(hyperShiftCmd, 'H', 'Shrink Leftward', function() resize_win('left')
 hotkey.bind(hyperShiftCmd, 'L', 'Stretch Rightward', function() resize_win('right') end, nil, function() resize_win('right') end)
 hotkey.bind(hyperShiftCmd, 'J', 'Stretch Downward', function() resize_win('down') end, nil, function() resize_win('down') end)
 hotkey.bind(hyperShiftCmd, 'K', 'Shrink Upward', function() resize_win('up') end, nil, function() resize_win('up') end)
-hotkey.bind(hyperShiftCmd, 'F', 'Fullscreen', function() resize_win('fullscreen') end, nil, nil)
+-- hotkey.bind(hyperShiftCmd, 'F', 'Fullscreen', function() resize_win('fullscreen') end, nil, nil)
 -- hotkey.bind(hyper, 'C', 'Center Window', function() resize_win('center') end, nil, nil)
 
 -- hotkey.bind(hyperShift, 'C', 'Resize & Center', function() resize_win('fcenter') end, nil, nil)
